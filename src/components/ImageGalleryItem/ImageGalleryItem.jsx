@@ -5,11 +5,11 @@ import Modal from 'components/Modal/Modal';
 
 export default class ImageGalleryItem extends Component {
   state = {
-    isModalOpan: false,
+    isModalOpen: false,
   };
 
   toggleModal = () => {
-    this.setState(({ isModalOpan }) => ({ isModalOpan: !isModalOpan }));
+    this.setState(({ isModalOpen }) => ({ isModalOpen: !isModalOpen }));
   };
 
   render() {
@@ -22,7 +22,7 @@ export default class ImageGalleryItem extends Component {
           onClick={this.toggleModal}
         />
 
-        {this.state.isModalOpan && (
+        {this.state.isModalOpen && (
           <Modal
             onCloseModal={this.toggleModal}
             largeImageURL={this.props.largeImageURL}

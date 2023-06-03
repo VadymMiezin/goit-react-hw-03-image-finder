@@ -6,7 +6,7 @@ import css from './Searchbar.module.css';
 export default class Searchbar extends Component {
   state = { search: '' };
 
-  handleFromSubmit = event => {
+  handleFormSubmit = event => {
     event.preventDefault();
     const searchQuery = event.currentTarget.text.value.trim();
 
@@ -31,7 +31,7 @@ export default class Searchbar extends Component {
   render() {
     return (
       <header className={css.Searchbar}>
-        <form className={css.SearchForm} onSubmit={this.handleFromSubmit}>
+        <form className={css.SearchForm} onSubmit={this.handleFormSubmit}>
           <button type="submit" className={css.SearchFormButton}>
             <span className={css.SearchFormButtonLabel}>
               <IoSearchOutline className={css.Icon} />

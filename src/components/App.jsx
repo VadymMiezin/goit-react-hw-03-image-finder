@@ -11,7 +11,7 @@ export default class App extends Component {
     imgs: [],
     page: null,
     isLoadMoreBtn: false,
-    isLoader: false,
+    isLoading: false,
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -24,12 +24,12 @@ export default class App extends Component {
           data.hits.length < 12
             ? this.setState(PrevState => ({
                 imgs: [...PrevState.imgs, ...data.hits],
-                isLoader: false,
+                isLoading: false,
                 isLoadMoreBtn: false,
               }))
             : this.setState(PrevState => ({
                 imgs: [...PrevState.imgs, ...data.hits],
-                isLoader: false,
+                isLoading: false,
                 isLoadMoreBtn: true,
               }))
         )
@@ -37,12 +37,12 @@ export default class App extends Component {
     }
   }
 
-  handleFromSubmit = query => {
+  handleFormSubmit = query => {
     this.setState({
       query,
       imgs: [],
       page: 1,
-      isLoader: true,
+      isLoading: true,
       isLoadMoreBtn: false,
     });
   };
@@ -50,7 +50,7 @@ export default class App extends Component {
   handleLoadMore = () => {
     this.setState(({ page }) => ({
       page: page + 1,
-      isLoader: true,
+      isLoading: true,
       isLoadMoreBtn: false,
     }));
   };
@@ -58,10 +58,10 @@ export default class App extends Component {
   render() {
     return (
       <div>
-        <Searchbar onSubmit={this.handleFromSubmit} />
+        <Searchbar onSubmit={this.handleFormSubmit} />
         {this.state.query && <ImageGallery imgs={this.state.imgs} />}
         {this.state.isLoadMoreBtn && <Button onClick={this.handleLoadMore} />}
-        {this.state.isLoader && <Loader />}
+        {this.state.isLoading && <Loader />}
       </div>
     );
   }
