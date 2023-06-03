@@ -6,19 +6,19 @@ import css from './Searchbar.module.css';
 export default class Searchbar extends Component {
   state = { search: '' };
 
-  handleFormSubmit = event => {
-    event.preventDefault();
-    const searchQuery = event.currentTarget.text.value.trim();
+  handleFormSubmit = e => {
+    e.preventDefault();
+    const searchQuery = e.currentTarget.text.value.trim();
 
     if (searchQuery === '') {
-      alert('Введіть назву в поле пошуку');
+      alert('Please enter at least one word');
     } else this.props.onSubmit(searchQuery);
     this.reset();
   };
 
-  handleChangeInput = event => {
+  handleChangeInput = e => {
     this.setState({
-      search: event.currentTarget.value.toLowerCase().trim(),
+      search: e.currentTarget.value.toLowerCase().trim(),
     });
   };
 
