@@ -19,21 +19,16 @@ export default class App extends Component {
       prevState.query !== this.state.query ||
       prevState.page !== this.state.page
     ) {
+      this.setState({ isLoading: true });
       fetchImages(this.state.query, this.state.page)
         .then(data =>
-          data.hits.length < 12
-            ? this.setState(PrevState => ({
-                imgs: [...PrevState.imgs, ...data.hits],
-                isLoading: false,
-                isLoadMoreBtn: false,
-              }))
-            : this.setState(PrevState => ({
-                imgs: [...PrevState.imgs, ...data.hits],
-                isLoading: false,
-                isLoadMoreBtn: true,
-              }))
+          this.setState(PrevState => ({
+            imgs: [...PrevState.imgs, ...data.hits],
+            isLoadMoreBtn: this.state.page < Math.ceil(data.totalHits / 12),
+          }))
         )
-        .catch(error => console.log(error));
+        .catch(error => console.log(error))
+        .finally(this.setState({ isLoading: false }));
     }
   }
 
@@ -50,8 +45,6 @@ export default class App extends Component {
   handleLoadMore = () => {
     this.setState(({ page }) => ({
       page: page + 1,
-      isLoading: true,
-      isLoadMoreBtn: false,
     }));
   };
 
